@@ -1,14 +1,18 @@
 <template>
-  <h1>¡Hola desde Vue!</h1>
+  <div class="app-main">
+    <Usuarios />
+    <Tareas />
+  </div>
 </template>
 
 <script setup>
-// Aquí puedes agregar la lógica de tu componente
+import Usuarios from './Usuarios.vue';
+import Tareas from './Tareas.vue';
 </script>
 
 <style scoped>
-h1 {
-  color: #42b983;
-  text-align: center;
-}
+  .app-main {
+    display: flex;
+    gap: 3rem;
+  }
 </style>

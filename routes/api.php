@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UsuarioController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\TareaController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -28,5 +29,7 @@ Route::prefix('usuarios')->group(function () {
     Route::delete('/deleteUser/{id}', [UsuarioController::class, 'destroy']);
 });
 
+Route::get('/tareas', [TareaController::class, 'index']);
+Route::post('/tareas', [TareaController::class, 'store']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
