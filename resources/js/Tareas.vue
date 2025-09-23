@@ -75,6 +75,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
+import { useAuth } from './composables/useAuth.js';
 
 const tareas = ref([]);
 const usuarios = ref([]);
@@ -87,12 +88,19 @@ const nuevaTarea = ref({
   usuario_id: ''
 });
 
+// Composable de autenticación para manejo de errores
+const { logout } = useAuth();
+
 const obtenerTareas = async () => {
   try {
     const res = await axios.get('/api/tareas');
     tareas.value = res.data;
   } catch (error) {
     console.error('Error al obtener tareas:', error);
+    if (error.response?.status === 401) {
+      alert('Sesión expirada. Por favor, inicia sesión nuevamente.');
+      await logout();
+    }
   }
 };
 
@@ -102,6 +110,10 @@ const obtenerUsuarios = async () => {
     usuarios.value = res.data;
   } catch (error) {
     console.error('Error al obtener usuarios:', error);
+    if (error.response?.status === 401) {
+      alert('Sesión expirada. Por favor, inicia sesión nuevamente.');
+      await logout();
+    }
   }
 };
 
@@ -112,7 +124,13 @@ const agregarTarea = async () => {
     nuevaTarea.value = { titulo: '', descripcion: '', estado: 'pendiente', fecha_vencimiento: '', usuario_id: '' };
     obtenerTareas();
   } catch (error) {
-    alert('Error al agregar tarea');
+    console.error('Error al agregar tarea:', error);
+    if (error.response?.status === 401) {
+      alert('Sesión expirada. Por favor, inicia sesión nuevamente.');
+      await logout();
+    } else {
+      alert('Error al agregar tarea. Verifica los datos e inténtalo nuevamente.');
+    }
   }
 };
 
