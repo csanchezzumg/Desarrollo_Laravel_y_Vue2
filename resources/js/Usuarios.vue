@@ -61,29 +61,48 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
+import { useAuth } from './composables/useAuth.js';
 
 const usuarios = ref([]);
 const showModal = ref(false);
 const nuevoUsuario = ref({ nombre: '', email: '', password: '', rol: 'usuario' });
+const error = ref('');
 
+// Composable de autenticación para manejo de errores
+const { logout } = useAuth();
 
 const obtenerUsuarios = async () => {
   try {
+    error.value = '';
     const res = await axios.get('/api/usuarios/listUsers');
     usuarios.value = res.data;
   } catch (error) {
     console.error('Error al obtener usuarios:', error);
+    if (error.response?.status === 401) {
+      // Token inválido o expirado
+      alert('Sesión expirada. Por favor, inicia sesión nuevamente.');
+      await logout();
+    } else {
+      error.value = 'Error al cargar usuarios. Inténtalo nuevamente.';
+    }
   }
 };
 
 const agregarUsuario = async () => {
   try {
+    error.value = '';
     await axios.post('/api/usuarios/addUser', nuevoUsuario.value);
     showModal.value = false;
-  nuevoUsuario.value = { nombre: '', email: '', password: '', rol: 'usuario' };
+    nuevoUsuario.value = { nombre: '', email: '', password: '', rol: 'usuario' };
     obtenerUsuarios();
   } catch (error) {
-    alert('Error al agregar usuario');
+    console.error('Error al agregar usuario:', error);
+    if (error.response?.status === 401) {
+      alert('Sesión expirada. Por favor, inicia sesión nuevamente.');
+      await logout();
+    } else {
+      alert('Error al agregar usuario. Verifica los datos e inténtalo nuevamente.');
+    }
   }
 };
 
