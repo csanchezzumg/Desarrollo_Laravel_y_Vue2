@@ -7,7 +7,30 @@
 import axios from 'axios';
 window.axios = axios;
 
+// Configurar la base URL para las peticiones API
+window.axios.defaults.baseURL = 'http://localhost:8000';
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common['Accept'] = 'application/json';
+window.axios.defaults.headers.common['Content-Type'] = 'application/json';
+
+// Interceptor para manejo global de errores 401
+window.axios.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (error.response?.status === 401) {
+            // Si hay un error 401, limpiar el localStorage y recargar la página
+            localStorage.removeItem('auth_token');
+            localStorage.removeItem('auth_user');
+            delete window.axios.defaults.headers.common['Authorization'];
+            
+            // Si no estamos en la página de login, recargar la página
+            if (!window.location.pathname.includes('login')) {
+                window.location.reload();
+            }
+        }
+        return Promise.reject(error);
+    }
+);
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
