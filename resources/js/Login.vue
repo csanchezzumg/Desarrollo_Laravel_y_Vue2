@@ -127,7 +127,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useAuth } from '../composables/useAuth.js'
+import { useAuth } from './composables/useAuth'
 
 // Composable de autenticación
 const { login, register, isLoading } = useAuth()

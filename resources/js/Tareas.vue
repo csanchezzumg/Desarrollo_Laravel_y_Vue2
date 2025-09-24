@@ -75,7 +75,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
-import { useAuth } from './composables/useAuth.js';
+import { useAuth } from './composables/useAuth';
 
 const tareas = ref([]);
 const usuarios = ref([]);

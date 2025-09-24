@@ -31,7 +31,7 @@
 
 <script setup>
 import { onMounted } from 'vue';
-import { useAuth } from './composables/useAuth.js';
+import { useAuth } from './composables/useAuth';
 import Login from './Login.vue';
 import Usuarios from './Usuarios.vue';
 import Tareas from './Tareas.vue';

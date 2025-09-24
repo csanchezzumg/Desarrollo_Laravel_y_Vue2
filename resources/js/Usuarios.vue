@@ -61,7 +61,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
-import { useAuth } from './composables/useAuth.js';
+import { useAuth } from './composables/useAuth';
 
 const usuarios = ref([]);
 const showModal = ref(false);
