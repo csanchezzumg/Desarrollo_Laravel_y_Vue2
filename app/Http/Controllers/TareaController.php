@@ -26,6 +26,34 @@ class TareaController extends Controller
             'fecha_vencimiento' => 'nullable|date',
         ]);
         $tarea = Tarea::create($validated);
-        return response()->json($tarea, 201);
+        return response()->json($tarea->load('usuario'), 201);
+    }
+
+    // Actualizar una tarea existente
+    public function update(Request $request, $id)
+    {
+        $tarea = Tarea::findOrFail($id);
+        
+        $validated = $request->validate([
+            'usuario_id' => 'sometimes|exists:usuarios,id',
+            'titulo' => 'sometimes|string|max:150',
+            'descripcion' => 'nullable|string',
+            'estado' => 'sometimes|in:pendiente,en_progreso,completada',
+            'fecha_vencimiento' => 'nullable|date',
+        ]);
+        
+        $tarea->update($validated);
+        return response()->json($tarea->load('usuario'));
+    }
+
+    // Eliminar una tarea
+    public function destroy($id)
+    {
+        $tarea = Tarea::findOrFail($id);
+        $tarea->delete();
+        
+        return response()->json([
+            'message' => 'Tarea eliminada exitosamente'
+        ]);
     }
 }
