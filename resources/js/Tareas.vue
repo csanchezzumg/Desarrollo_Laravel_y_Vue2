@@ -55,6 +55,7 @@
             <th>Fecha de vencimiento</th>
             <th>Usuario</th>
             <th>Fecha de creación</th>
+            <th v-if="isAdmin">Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -65,6 +66,15 @@
             <td>{{ tarea.fecha_vencimiento }}</td>
             <td>{{ tarea.usuario ? tarea.usuario.nombre : '' }}</td>
             <td>{{ tarea.created_at ? new Date(tarea.created_at).toLocaleDateString() : '' }}</td>
+            <td v-if="isAdmin" class="actions-cell">
+              <button 
+                @click="confirmarEliminacion(tarea)"
+                class="delete-btn"
+                :title="`Eliminar tarea: ${tarea.titulo}`"
+              >
+                🗑️ Eliminar
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -89,7 +99,7 @@ const nuevaTarea = ref({
 });
 
 // Composable de autenticación para manejo de errores
-const { logout } = useAuth();
+const { logout, isAdmin } = useAuth();
 
 const obtenerTareas = async () => {
   try {
@@ -130,6 +140,37 @@ const agregarTarea = async () => {
       await logout();
     } else {
       alert('Error al agregar tarea. Verifica los datos e inténtalo nuevamente.');
+    }
+  }
+};
+
+const confirmarEliminacion = (tarea) => {
+  const mensaje = `¿Estás seguro de que deseas eliminar la tarea "${tarea.titulo}"?\n\nEsta acción no se puede deshacer.`;
+  
+  if (confirm(mensaje)) {
+    eliminarTarea(tarea.id, tarea.titulo);
+  }
+};
+
+const eliminarTarea = async (tareaId, tituloTarea) => {
+  try {
+    await axios.delete(`/api/tareas/${tareaId}`);
+    
+    // Mostrar mensaje de éxito
+    alert(`Tarea "${tituloTarea}" eliminada exitosamente.`);
+    
+    // Recargar la lista de tareas
+    obtenerTareas();
+  } catch (error) {
+    console.error('Error al eliminar tarea:', error);
+    
+    if (error.response?.status === 401) {
+      alert('Sesión expirada. Por favor, inicia sesión nuevamente.');
+      await logout();
+    } else if (error.response?.status === 403) {
+      alert('❌ Acceso denegado. Solo los administradores pueden eliminar tareas.');
+    } else {
+      alert(`Error al eliminar la tarea "${tituloTarea}". Inténtalo nuevamente.`);
     }
   }
 };
@@ -212,6 +253,33 @@ td {
 
 tr:hover {
   background: #f7fafc;
+}
+
+.actions-cell {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.delete-btn {
+  background: #e53e3e;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+  font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif !important;
+}
+
+.delete-btn:hover {
+  background: #c53030;
+  transform: translateY(-1px);
+}
+
+.delete-btn:active {
+  transform: translateY(0);
 }
 .modal-overlay {
   position: fixed;
