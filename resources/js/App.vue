@@ -124,17 +124,18 @@ const handleLogout = async () => {
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 2rem 1rem;
   display: flex;
-  gap: 2rem;
+  gap: 1.5rem;
   flex: 1;
-  overflow-x: auto;
+  overflow: hidden;
 }
 
 /* Asegurar que cada sección tome el espacio disponible */
 .main-content > * {
   flex: 1;
   min-width: 0; /* Permite que el contenido se encoja */
+  overflow: hidden;
 }
 
 @media (max-width: 1200px) {

@@ -49,24 +49,24 @@
       <table>
         <thead>
           <tr>
-            <th>Título</th>
-            <th>Descripción</th>
-            <th>Estado</th>
-            <th>Fecha de vencimiento</th>
-            <th>Usuario</th>
-            <th>Fecha de creación</th>
-            <th v-if="isAdmin">Acciones</th>
+            <th class="col-titulo">Título</th>
+            <th class="col-descripcion">Descripción</th>
+            <th class="col-estado">Estado</th>
+            <th class="col-fecha">Fecha de vencimiento</th>
+            <th class="col-usuario">Usuario</th>
+            <th class="col-fecha-creacion">Fecha de creación</th>
+            <th v-if="isAdmin" class="col-acciones">Acciones</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="tarea in tareas" :key="tarea.id">
-            <td>{{ tarea.titulo }}</td>
-            <td>{{ tarea.descripcion }}</td>
-            <td>{{ tarea.estado }}</td>
-            <td>{{ tarea.fecha_vencimiento }}</td>
-            <td>{{ tarea.usuario ? tarea.usuario.nombre : '' }}</td>
-            <td>{{ tarea.created_at ? new Date(tarea.created_at).toLocaleDateString() : '' }}</td>
-            <td v-if="isAdmin" class="actions-cell">
+            <td class="col-titulo">{{ tarea.titulo }}</td>
+            <td class="col-descripcion">{{ tarea.descripcion }}</td>
+            <td class="col-estado">{{ tarea.estado }}</td>
+            <td class="col-fecha">{{ tarea.fecha_vencimiento }}</td>
+            <td class="col-usuario">{{ tarea.usuario ? tarea.usuario.nombre : '' }}</td>
+            <td class="col-fecha-creacion">{{ tarea.created_at ? new Date(tarea.created_at).toLocaleDateString() : '' }}</td>
+            <td v-if="isAdmin" class="actions-cell col-acciones">
               <button 
                 @click="confirmarEliminacion(tarea)"
                 class="delete-btn"
@@ -215,6 +215,8 @@ onMounted(() => {
 .tabla-tareas {
   width: 100%;
   overflow-x: auto;
+  min-height: 0;
+  flex: 1;
 }
 
 .tabla-tareas h2 {
@@ -232,7 +234,17 @@ table {
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  table-layout: fixed;
 }
+
+/* Definir anchos específicos para las columnas */
+.col-titulo { width: 15%; min-width: 120px; }
+.col-descripcion { width: 25%; min-width: 150px; }
+.col-estado { width: 10%; min-width: 90px; }
+.col-fecha { width: 12%; min-width: 100px; }
+.col-usuario { width: 12%; min-width: 100px; }
+.col-fecha-creacion { width: 12%; min-width: 100px; }
+.col-acciones { width: 8%; min-width: 80px; max-width: 80px; }
 
 th {
   background: #f7fafc;
@@ -245,10 +257,22 @@ th {
 }
 
 td {
-  padding: 0.75rem;
+  padding: 0.75rem 0.5rem;
   border-bottom: 1px solid #e2e8f0;
   font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif !important;
   color: #4a5568;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Permitir que la descripción tenga más líneas */
+.col-descripcion {
+  white-space: normal;
+  max-height: 3em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.4;
 }
 
 tr:hover {
@@ -258,19 +282,24 @@ tr:hover {
 .actions-cell {
   text-align: center;
   white-space: nowrap;
+  width: 80px;
+  min-width: 80px;
+  max-width: 80px;
 }
 
 .delete-btn {
   background: #e53e3e;
   color: white;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
+  padding: 0.375rem 0.625rem;
+  border-radius: 4px;
   cursor: pointer;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   font-weight: 600;
   transition: background-color 0.2s ease;
   font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif !important;
+  min-width: 60px;
+  text-align: center;
 }
 
 .delete-btn:hover {
