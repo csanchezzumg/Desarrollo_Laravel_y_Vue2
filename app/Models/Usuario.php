@@ -24,4 +24,12 @@ class Usuario extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+    /**
+     * Relación: Un usuario puede tener muchas tareas
+     */
+    public function tareas()
+    {
+        return $this->hasMany(Tarea::class, 'usuario_id');
+    }
 }

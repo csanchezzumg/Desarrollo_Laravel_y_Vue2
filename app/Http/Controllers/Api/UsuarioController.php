@@ -132,6 +132,16 @@ class UsuarioController extends Controller
             $usuario = Usuario::findOrFail($id);
             $nombreUsuario = $usuario->nombre;
             
+            // Verificar si el usuario tiene tareas asignadas
+            $tareasAsignadas = $usuario->tareas()->count();
+            
+            if ($tareasAsignadas > 0) {
+                return response()->json([
+                    'message' => "No se puede eliminar el usuario '{$nombreUsuario}' porque tiene {$tareasAsignadas} tarea(s) asignada(s). Elimina o reasigna las tareas primero.",
+                    'status' => false
+                ], 400);
+            }
+            
             // Eliminar el usuario
             $usuario->delete();
             
