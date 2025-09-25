@@ -43,6 +43,7 @@
             <th>Email</th>
             <th>Rol</th>
             <th>Fecha de creación</th>
+            <th v-if="isAdmin">Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -51,6 +52,15 @@
             <td>{{ usuario.email }}</td>
             <td>{{ usuario.rol }}</td>
             <td>{{ usuario.created_at ? new Date(usuario.created_at).toLocaleDateString() : '' }}</td>
+            <td v-if="isAdmin" class="actions-cell">
+              <button 
+                @click="confirmarEliminacion(usuario)"
+                class="delete-btn"
+                :title="`Eliminar ${usuario.nombre}`"
+              >
+                🗑️ Eliminar
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -59,7 +69,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import axios from 'axios';
 import { useAuth } from './composables/useAuth';
 
@@ -69,7 +79,7 @@ const nuevoUsuario = ref({ nombre: '', email: '', password: '', rol: 'usuario' }
 const error = ref('');
 
 // Composable de autenticación para manejo de errores
-const { logout } = useAuth();
+const { logout, user, isAdmin } = useAuth();
 
 const obtenerUsuarios = async () => {
   try {
@@ -102,6 +112,37 @@ const agregarUsuario = async () => {
       await logout();
     } else {
       alert('Error al agregar usuario. Verifica los datos e inténtalo nuevamente.');
+    }
+  }
+};
+
+const confirmarEliminacion = (usuario) => {
+  const mensaje = `¿Estás seguro de que deseas eliminar al usuario "${usuario.nombre}"?\n\nEsta acción no se puede deshacer.`;
+  
+  if (confirm(mensaje)) {
+    eliminarUsuario(usuario.id, usuario.nombre);
+  }
+};
+
+const eliminarUsuario = async (usuarioId, nombreUsuario) => {
+  try {
+    await axios.delete(`/api/usuarios/deleteUser/${usuarioId}`);
+    
+    // Mostrar mensaje de éxito
+    alert(`Usuario "${nombreUsuario}" eliminado exitosamente.`);
+    
+    // Recargar la lista de usuarios
+    obtenerUsuarios();
+  } catch (error) {
+    console.error('Error al eliminar usuario:', error);
+    
+    if (error.response?.status === 401) {
+      alert('Sesión expirada. Por favor, inicia sesión nuevamente.');
+      await logout();
+    } else if (error.response?.status === 403) {
+      alert('❌ Acceso denegado. Solo los administradores pueden eliminar usuarios.');
+    } else {
+      alert(`Error al eliminar el usuario "${nombreUsuario}". Inténtalo nuevamente.`);
     }
   }
 };
@@ -183,6 +224,33 @@ td {
 
 tr:hover {
   background: #f7fafc;
+}
+
+.actions-cell {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.delete-btn {
+  background: #e53e3e;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+  font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif !important;
+}
+
+.delete-btn:hover {
+  background: #c53030;
+  transform: translateY(-1px);
+}
+
+.delete-btn:active {
+  transform: translateY(0);
 }
 th {
   font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif !important;
