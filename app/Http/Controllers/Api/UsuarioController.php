@@ -128,6 +128,28 @@ class UsuarioController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $usuario = Usuario::findOrFail($id);
+            $nombreUsuario = $usuario->nombre;
+            
+            // Eliminar el usuario
+            $usuario->delete();
+            
+            return response()->json([
+                'message' => "Usuario '{$nombreUsuario}' eliminado exitosamente.",
+                'status' => true
+            ], 200);
+            
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json([
+                'message' => 'Usuario no encontrado.',
+                'status' => false
+            ], 404);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Error al eliminar el usuario: ' . $e->getMessage(),
+                'status' => false
+            ], 500);
+        }
     }
 }
