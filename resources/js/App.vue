@@ -62,6 +62,8 @@ const handleLogout = async () => {
 .app-container {
   min-height: 100vh;
   background: #f8fafc;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .navbar {
@@ -69,11 +71,11 @@ const handleLogout = async () => {
   color: white;
   padding: 1rem 0;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
 }
 
 .nav-content {
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
