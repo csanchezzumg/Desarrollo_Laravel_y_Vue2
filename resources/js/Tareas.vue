@@ -143,44 +143,75 @@ onMounted(() => {
 <style scoped>
 .tareas-container {
   display: flex;
-  gap: 2rem;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
 }
+
 .acciones {
-  min-width: 250px;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: flex-start;
 }
-  .agregar-btn {
-    background: #388e3c;
-    color: #fff;
-    border: none;
-    padding: 0.5rem 1rem;
-    margin-bottom: 1rem;
-    cursor: pointer;
-    border-radius: 4px;
-    font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif !important;
-    font-weight: bold;
-    font-size: 1rem;
-  }
-  .tabla-tareas {
-    flex: 1;
-  }
-  .tabla-tareas h2 {
-    font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif !important;
-    font-size: 2rem;
-    font-weight: bold;
-  }
-  th, td {
-    font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif !important;
-  }
+
+.agregar-btn {
+  background: #388e3c;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  border-radius: 8px;
+  font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif !important;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background-color 0.2s ease;
+}
+
+.agregar-btn:hover {
+  background: #2e7d32;
+}
+
+.tabla-tareas {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.tabla-tareas h2 {
+  font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif !important;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0 0 1rem 0;
+  color: #2d3748;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
-th, td {
-  border: 1px solid #ddd;
-  padding: 0.5rem;
-}
+
 th {
-  background: #f5f5f5;
+  background: #f7fafc;
+  color: #2d3748;
+  font-weight: 600;
+  padding: 1rem 0.75rem;
+  text-align: left;
+  border-bottom: 2px solid #e2e8f0;
+  font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif !important;
+}
+
+td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #e2e8f0;
+  font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif !important;
+  color: #4a5568;
+}
+
+tr:hover {
+  background: #f7fafc;
 }
 .modal-overlay {
   position: fixed;

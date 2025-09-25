@@ -114,12 +114,6 @@ const handleLogout = async () => {
   background: #c53030;
 }
 
-.main-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-}
-
 .app-main {
   display: flex;
   flex-direction: column;
@@ -127,9 +121,32 @@ const handleLogout = async () => {
 }
 
 .main-content {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
   display: flex;
-  gap: 3rem;
+  gap: 2rem;
   flex: 1;
+  overflow-x: auto;
+}
+
+/* Asegurar que cada sección tome el espacio disponible */
+.main-content > * {
+  flex: 1;
+  min-width: 0; /* Permite que el contenido se encoja */
+}
+
+@media (max-width: 1200px) {
+  .main-content {
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1rem;
+  }
+  
+  .main-content > * {
+    flex: none;
+  }
 }
 
 @media (max-width: 768px) {
@@ -140,9 +157,7 @@ const handleLogout = async () => {
   }
   
   .main-content {
-    flex-direction: column;
-    gap: 2rem;
-    padding: 1rem;
+    padding: 1rem 0.5rem;
   }
 }
 </style>

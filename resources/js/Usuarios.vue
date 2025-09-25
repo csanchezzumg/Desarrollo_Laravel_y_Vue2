@@ -114,39 +114,75 @@ onMounted(() => {
 <style scoped>
 .usuarios-container {
   display: flex;
-  gap: 2rem;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
 }
+
 .acciones {
-  min-width: 250px;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: flex-start;
 }
+
 .agregar-btn {
   background: #1976d2;
   color: #fff;
   border: none;
-  padding: 0.5rem 1rem;
-  margin-bottom: 1rem;
+  padding: 0.75rem 1.5rem;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 8px;
   font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif !important;
   font-weight: bold;
   font-size: 1rem;
+  transition: background-color 0.2s ease;
 }
+
+.agregar-btn:hover {
+  background: #1565c0;
+}
+
 .tabla-usuarios {
-  flex: 1;
+  width: 100%;
+  overflow-x: auto;
 }
+
+.tabla-usuarios h2 {
+  font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif !important;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0 0 1rem 0;
+  color: #2d3748;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
-th, td {
-  border: 1px solid #ddd;
-  padding: 0.5rem;
+
+th {
+  background: #f7fafc;
+  color: #2d3748;
+  font-weight: 600;
+  padding: 1rem 0.75rem;
+  text-align: left;
+  border-bottom: 2px solid #e2e8f0;
   font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif !important;
 }
-.tabla-usuarios h2 {
+
+td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #e2e8f0;
   font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif !important;
-  font-size: 2rem;
-  font-weight: bold;
+  color: #4a5568;
+}
+
+tr:hover {
+  background: #f7fafc;
 }
 th {
   font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif !important;
