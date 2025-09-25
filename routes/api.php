@@ -37,12 +37,16 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/addUser', [UsuarioController::class, 'store']);
         Route::get('/getUser/{id}', [UsuarioController::class, 'show']);
         Route::put('/updateUser/{id}', [UsuarioController::class, 'update']);
-        Route::delete('/deleteUser/{id}', [UsuarioController::class, 'destroy']);
+        
+        // Ruta de eliminación solo para administradores
+        Route::delete('/deleteUser/{id}', [UsuarioController::class, 'destroy'])->middleware('admin');
     });
     
     // Rutas para tareas
     Route::get('/tareas', [TareaController::class, 'index']);
     Route::post('/tareas', [TareaController::class, 'store']);
     Route::put('/tareas/{id}', [TareaController::class, 'update']);
-    Route::delete('/tareas/{id}', [TareaController::class, 'destroy']);
+    
+    // Ruta de eliminación de tareas solo para administradores
+    Route::delete('/tareas/{id}', [TareaController::class, 'destroy'])->middleware('admin');
 });
