@@ -239,12 +239,12 @@ table {
 
 /* Definir anchos específicos para las columnas */
 .col-titulo { width: 14%; min-width: 120px; }
-.col-descripcion { width: 24%; min-width: 150px; }
+.col-descripcion { width: 23%; min-width: 150px; }
 .col-estado { width: 10%; min-width: 90px; }
 .col-fecha { width: 12%; min-width: 100px; }
 .col-usuario { width: 12%; min-width: 100px; }
 .col-fecha-creacion { width: 12%; min-width: 100px; }
-.col-acciones { width: 10%; min-width: 90px; max-width: 90px; }
+.col-acciones { width: 11%; min-width: 95px; max-width: 95px; }
 
 th {
   background: #f7fafc;
@@ -282,24 +282,24 @@ tr:hover {
 .actions-cell {
   text-align: center;
   white-space: nowrap;
-  width: 90px;
-  min-width: 90px;
-  max-width: 90px;
+  width: 95px;
+  min-width: 95px;
+  max-width: 95px;
 }
 
 .delete-btn {
   background: #e53e3e;
   color: white;
   border: none;
-  padding: 0.375rem 0.5rem;
+  padding: 0.5rem 0.75rem;
   border-radius: 4px;
   cursor: pointer;
   font-size: 0.75rem;
   font-weight: 600;
   transition: background-color 0.2s ease;
   font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif !important;
-  min-width: 70px;
-  width: 70px;
+  min-width: 75px;
+  width: 75px;
   text-align: center;
   white-space: nowrap;
 }
