@@ -75,7 +75,9 @@ const handleLogout = async () => {
 }
 
 .nav-content {
+  max-width: 1400px;
   width: 100%;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -92,7 +94,9 @@ const handleLogout = async () => {
 .nav-user {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.75rem;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .user-info {
