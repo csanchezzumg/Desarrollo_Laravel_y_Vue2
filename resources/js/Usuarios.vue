@@ -58,7 +58,7 @@
                 class="delete-btn"
                 :title="`Eliminar ${usuario.nombre}`"
               >
-                🗑️ Eliminar
+                Eliminar
               </button>
             </td>
           </tr>
@@ -209,11 +209,11 @@ table {
 }
 
 /* Definir anchos específicos para las columnas de usuarios */
-.col-nombre { width: 25%; min-width: 150px; }
-.col-email { width: 32%; min-width: 200px; }
-.col-rol { width: 15%; min-width: 100px; }
-.col-fecha-creacion { width: 17%; min-width: 120px; }
-.col-acciones { width: 11%; min-width: 95px; max-width: 95px; }
+.col-nombre { width: 20%; min-width: 130px; }
+.col-email { width: 28%; min-width: 180px; }
+.col-rol { width: 12%; min-width: 80px; }
+.col-fecha-creacion { width: 20%; min-width: 120px; }
+.col-acciones { width: 20%; min-width: 100px; max-width: 120px; }
 
 th {
   background: #f7fafc;
@@ -242,9 +242,9 @@ tr:hover {
 .actions-cell {
   text-align: center;
   white-space: nowrap;
-  width: 95px;
-  min-width: 95px;
-  max-width: 95px;
+  width: 100px;
+  min-width: 100px;
+  max-width: 120px;
 }
 
 .delete-btn {
@@ -258,8 +258,8 @@ tr:hover {
   font-weight: 600;
   transition: background-color 0.2s ease;
   font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif !important;
-  min-width: 75px;
-  width: 75px;
+  min-width: 65px;
+  width: 65px;
   text-align: center;
   white-space: nowrap;
 }

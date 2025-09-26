@@ -72,7 +72,7 @@
                 class="delete-btn"
                 :title="`Eliminar tarea: ${tarea.titulo}`"
               >
-                🗑️ Eliminar
+                Eliminar
               </button>
             </td>
           </tr>
@@ -238,13 +238,13 @@ table {
 }
 
 /* Definir anchos específicos para las columnas */
-.col-titulo { width: 14%; min-width: 120px; }
-.col-descripcion { width: 23%; min-width: 150px; }
-.col-estado { width: 10%; min-width: 90px; }
-.col-fecha { width: 12%; min-width: 100px; }
+.col-titulo { width: 16%; min-width: 120px; }
+.col-descripcion { width: 20%; min-width: 140px; }
+.col-estado { width: 12%; min-width: 90px; }
+.col-fecha { width: 13%; min-width: 100px; }
 .col-usuario { width: 12%; min-width: 100px; }
-.col-fecha-creacion { width: 12%; min-width: 100px; }
-.col-acciones { width: 11%; min-width: 95px; max-width: 95px; }
+.col-fecha-creacion { width: 13%; min-width: 100px; }
+.col-acciones { width: 14%; min-width: 100px; max-width: 120px; }
 
 th {
   background: #f7fafc;
@@ -282,9 +282,9 @@ tr:hover {
 .actions-cell {
   text-align: center;
   white-space: nowrap;
-  width: 95px;
-  min-width: 95px;
-  max-width: 95px;
+  width: 100px;
+  min-width: 100px;
+  max-width: 120px;
 }
 
 .delete-btn {
@@ -298,8 +298,8 @@ tr:hover {
   font-weight: 600;
   transition: background-color 0.2s ease;
   font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif !important;
-  min-width: 75px;
-  width: 75px;
+  min-width: 65px;
+  width: 65px;
   text-align: center;
   white-space: nowrap;
 }
